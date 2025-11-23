@@ -1,6 +1,6 @@
-# Machine-Precision Prediction of Low-Dimensional Chaotic Systems
+# Machine-Precision Prediction of Low-Dimensional Chaotic Systems from Noise-Free Data
 
-This repository contains all scripts and instructions needed to replicate the simulation study in the article *Machine-Precision Prediction of Low-Dimensional Chaotic Systems* by Christof Schötz and Niklas Boers.
+This repository contains all scripts and instructions needed to replicate the simulation study in the article *Machine-Precision Prediction of Low-Dimensional Chaotic Systems from Noise-Free Data* by Christof Schötz and Niklas Boers.
 
 ---
 
