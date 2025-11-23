@@ -18,7 +18,7 @@ This repository contains all scripts and instructions needed to replicate the si
 
    * **`workspace`**: Contains R source code. Plots and LaTeX tables will be generated here.
       - **`img`**: results reported as images
-      - **`key`**: results reported as key value pairs
+      - **`key`**: results reported as key-value pairs
       - **`tbl`**: results reported as LaTeX tables
       - **`src`**: source code
 
@@ -65,7 +65,7 @@ This repository contains all scripts and instructions needed to replicate the si
 
 6. **Compiler**
 
-   On Windows, you may need a mingw-w64/bin folder in your PATH environment variable. Download it eg form https://winlibs.com/
+   On Windows, you may need a mingw-w64/bin folder in your PATH environment variable. Download it e.g., from https://winlibs.com/
 
 7. **LaTeX**
 
@@ -75,16 +75,16 @@ This repository contains all scripts and instructions needed to replicate the si
 
 ## 2. Example
 
-See `_example.R` for an example script that creates a Lorenz 63 trajectory, fits a polynomial propagator, makes a prediction, and plots the result.
+See `workspace/src/_example.R` for an example script that creates a Lorenz 63 trajectory, fits a polynomial propagator, makes a prediction, and plots the result.
 
 ---
 
 ## 3. Workflow 
 
-Run all code by calling `Rscript run_<name>.R <x> [<from:to>]`, where `<x>` is `c` on a slurm managed cluster (submits slurm jobs; might need to edit `src/run_*` and `src/common_run.R` to use the right slurm options such as the qos name), `s` for local sequential execution, or `p` for local parallel execution. Some scripts have an additional argument of the form `from:to` where `from` and `to` are natural numbers and describe the range of random seeds the scripts are run with.
+Run all code by calling `Rscript run_<name>.R <x> [<from:to>]`, where `<x>` is `c` on a slurm managed cluster (submits slurm jobs; might need to edit `src/run_*` and `src/common_run.R` to use the right slurm options such as the QOS name), `s` for local sequential execution, or `p` for local parallel execution. Some scripts have an additional argument of the form `from:to` where `from` and `to` are natural numbers and describe the range of random seeds the scripts are run with.
 
 ```bash
-cd PaperPolyProp/src
+cd workspace/src
 # Generate Ground‐Truth Trajectories
 Rscript run_truth.R c 
 # Wait until all jobs are finished!
@@ -99,14 +99,14 @@ Rscript run_forecast_TCSA_extra.R c 1:100
 Rscript run_forecast_L63_extra.R c 1:100
 Rscript run_forecast_noisy.R c 1:100
 # Wait until all jobs are finished!
-# Calulate Valid Prediction Times
+# Calculate Valid Prediction Times
 Rscript run_solverError_evaluate.R c
 Rscript run_evaluate.R c
 # Wait until all jobs are finished!
-# Calulate Statistics of Error Metrics (mean VPT)
+# Calculate Statistics of Error Metrics (mean VPT)
 Rscript run_errorStats.R c
 # Wait until all jobs are finished!
-# Create Plots and Latex Tables (requires LaTeX installation)
+# Create Plots and LaTeX Tables (requires LaTeX installation)
 Rscript run_report.R c
 ```
 
@@ -117,8 +117,8 @@ Rscript run_report.R c
 File formats:
 
 - larger data files (`.feather`) are stored in the Feather File Format (Apache Arrow),  https://arrow.apache.org/docs/python/feather.html
-- meta data is stored in `.json` files, https://www.json.org/json-en.html
+- metadata is stored in `.json` files, https://www.json.org/json-en.html
 - results that require less memory are stored in `.csv` files, https://en.wikipedia.org/wiki/Comma-separated_values
-- reporting is done in LaTeX source code (`.tex`) for tables, in PNG image files (`.png`), or in PDFs (`.pdf`) created via tikz https://tikz.dev/
+- reporting is done in LaTeX source code (`.tex`) for tables, in PNG image files (`.png`), or in PDFs (`.pdf`) created via tikz: https://tikz.dev/
 
-**Note:** This repository only contains the large data files of the first out of 100 repetitions for forecast error trajectories. But all meta-data files and evaluations are contained.
+**Note:** This repository only contains the large data files of the first out of 100 repetitions for forecast error trajectories. But all metadata files and evaluations are contained.
