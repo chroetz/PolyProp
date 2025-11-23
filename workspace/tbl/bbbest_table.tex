@@ -1,0 +1,26 @@
+\begin{center}
+\fontsize{8.0pt}{10pt}\selectfont
+\fontfamily{phv}\selectfont
+\renewcommand{\arraystretch}{1.05}
+\setlength{\tabcolsep}{0.3em}
+\rowcolors{2}{gray!20}{white}
+\begin{tabular}{lllllrr}
+\toprule
+\multicolumn{3}{c}{Precision} &  &  &  &  \\ 
+\cmidrule(lr){1-3}
+system & data & method & $n$ & $\stepsize$ & Degree & VPT \\ 
+\midrule\addlinespace[2.5pt]
+64bit & 64bit & 32bit & \$2\textasciicircum{}\{11\} = 2048\$ & \$2\textasciicircum{}\{-5\}\$ & 4 & 6.4 \\ 
+32bit & 64bit & 32bit & \$2\textasciicircum{}\{12\} = 4096\$ & \$2\textasciicircum{}\{-5\}\$ & 4 & 6.5 \\ 
+512bit & 64bit & 32bit & \$2\textasciicircum{}\{13\} = 8192\$ & \$2\textasciicircum{}\{-7\}\$ & 3 & 6.9 \\ 
+32bit & 64bit & 64bit & \$2\textasciicircum{}\{10\} = 1024\$ & \$2\textasciicircum{}\{-6\}\$ & 5 & 11.8 \\ 
+32bit & 64bit & 512bit & \$2\textasciicircum{}\{10\} = 1024\$ & \$2\textasciicircum{}\{-6\}\$ & 5 & 11.8 \\ 
+512bit & 64bit & 64bit & \$2\textasciicircum{}\{14\} = 16384\$ & \$2\textasciicircum{}\{-9\}\$ & 5 & 21.1 \\ 
+64bit & 64bit & 64bit & \$2\textasciicircum{}\{14\} = 16384\$ & \$2\textasciicircum{}\{-9\}\$ & 5 & 21.3 \\ 
+64bit & 64bit & 512bit & \$2\textasciicircum{}\{13\} = 8192\$ & \$2\textasciicircum{}\{-5\}\$ & 13 & 32.1 \\ 
+512bit & 64bit & 512bit & \$2\textasciicircum{}\{14\} = 16384\$ & \$2\textasciicircum{}\{-5\}\$ & 13 & 35.6 \\ 
+512bit & 512bit & 512bit & \$2\textasciicircum{}\{15\} = 32768\$ & \$2\textasciicircum{}\{-9\}\$ & 16 & 104.8 \\ 
+\bottomrule
+\end{tabular}
+\end{center}
+

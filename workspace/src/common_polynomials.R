@@ -1,0 +1,1 @@
+Rcpp::sourceCpp("polynomials.cpp")

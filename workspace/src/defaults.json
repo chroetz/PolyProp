@@ -1,0 +1,119 @@
+{
+    "L63": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": [-8, 7, 27]
+    },
+    "TCSA": {
+        "timeStep": "R> 2^(-6)",
+        "truthDuration": "R> 2^17",
+        "testDuration": 5000,
+        "state0": [0, 1, -1]
+    },
+    "L96": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50
+    },
+    "L96D5": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": [8.01, 8, 8, 8, 8]
+    },
+    "L96D6": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": [8.01, 8, 8, 8, 8, 8]
+    },
+    "L96D7": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": [8.01, 8, 8, 8, 8, 8, 8]
+    },
+    "L96D8": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": [8.01, 8, 8, 8, 8, 8, 8, 8]
+    },
+    "L96D9": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": [8.01, 8, 8, 8, 8, 8, 8, 8, 8]
+    },
+    "L96D10": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": "R> c(8.01, rep(8, 9))"
+    },
+    "L96D11": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": "R> c(8.01, rep(8, 10))"
+    },
+    "L96D12": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": "R> c(8.01, rep(8, 11))"
+    },
+    "L96D13": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": "R> c(8.01, rep(8, 12))"
+    },
+    "L96D14": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": "R> c(8.01, rep(8, 13))"
+    },
+    "L96D15": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": "R> c(8.01, rep(8, 14))"
+    },
+    "L96D16": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": "R> c(8.01, rep(8, 15))"
+    },
+    "L96D917": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": "R> c(8.01, rep(8, 16))"
+    },
+    "L96D18": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": "R> c(8.01, rep(8, 17))"
+    },
+    "L96D19": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": "R> c(8.01, rep(8, 18))"
+    },
+    "L96D20": {
+        "timeStep": "R> 2^(-10)",
+        "truthDuration": "R> 2^13",
+        "testDuration": 50,
+        "state0": "R> c(8.01, rep(8, 19))"
+    },
+    "forecast": {
+        "nObs": "2^(3:15)",
+        "nSteps": "2^(0:7)"
+    }
+}

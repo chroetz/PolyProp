@@ -1,0 +1,26 @@
+\begin{center}
+\fontsize{8.0pt}{10pt}\selectfont
+\fontfamily{phv}\selectfont
+\renewcommand{\arraystretch}{1.05}
+\setlength{\tabcolsep}{0.5em}
+\rowcolors{2}{gray!20}{white}
+\begin{tabular}{lccccccrcr}
+\toprule
+ & \multicolumn{3}{c}{Precision} &  &  &  & \multicolumn{2}{c}{Polynomial Prop.} & RK4 \\ 
+\cmidrule(lr){2-4} \cmidrule(lr){8-9} \cmidrule(lr){10-10}
+System & system & data & method & $n$ & $p$ & $\stepsize$ & VPT & 95\%-CI & VPT \\ 
+\midrule\addlinespace[2.5pt]
+L96D5 & 32 bit & 64 bit & 64 bit & $2^{17}$ & 6 & $2^{-7}$ & 12.6 & [11.9, 13.3] & 12.2 \\ 
+L96D6 & 32 bit & 64 bit & 64 bit & $2^{17}$ & 6 & $2^{-7}$ & 13.5 & [12.9, 14.2] & 13.6 \\ 
+L96D7 & 32 bit & 64 bit & 64 bit & $2^{17}$ & 6 & $2^{-7}$ & 13.4 & [12.8, 14.0] & 13.7 \\ 
+L96D8 & 32 bit & 64 bit & 64 bit & $2^{17}$ & 6 & $2^{-7}$ & 13.4 & [12.9, 14.0] & 14.3 \\ 
+L96D9 & 32 bit & 64 bit & 64 bit & $2^{17}$ & 6 & $2^{-7}$ & 13.4 & [12.8, 14.1] & 13.9 \\ 
+L96D5 & 64 bit & 32 bit & 64 bit & $2^{17}$ & 6 & $2^{-7}$ & 15.8 & [15.0, 16.5] & 16.3 \\ 
+L96D6 & 64 bit & 32 bit & 64 bit & $2^{17}$ & 6 & $2^{-7}$ & 16.1 & [15.4, 16.7] & 16.9 \\ 
+L96D7 & 64 bit & 32 bit & 64 bit & $2^{17}$ & 6 & $2^{-7}$ & 17.4 & [16.6, 18.1] & 16.9 \\ 
+L96D8 & 64 bit & 32 bit & 64 bit & $2^{17}$ & 6 & $2^{-7}$ & 17.3 & [16.6, 18.0] & 17.4 \\ 
+L96D9 & 64 bit & 32 bit & 64 bit & $2^{17}$ & 6 & $2^{-7}$ & 16.6 & [15.9, 17.3] & 17.0 \\ 
+\bottomrule
+\end{tabular}
+\end{center}
+
