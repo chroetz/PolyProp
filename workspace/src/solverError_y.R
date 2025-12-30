@@ -7,12 +7,13 @@ source("common_integrate.R")
 
 # default parameters
 randomSeed <- 1
-truthName <- "L96D5_ds"
+truthName <- "L63_dd"
 testDuration <- 50
-solverPrecision <- "d" # "s", "d", "m"
+solverPrecision <- "y"
 timeStep <- 2^(-10)
+nSkip <- 2^5
 label <- NULL
-nReps <- 3
+nReps <- 10
 
 
 # read command line arguments and set parameters
@@ -43,7 +44,7 @@ solverError <- vapply(
     state0 <- truth$data[sampledStartIdx, -1]
     time0 <- truth$data[sampledStartIdx, 1]
     target <- truth$data[sampledStartIdx:(sampledStartIdx+n), ]
-    forecast <- integrateSystem(state0, timeStep, n + 1)
+    forecast <- integrateSystem(state0, timeStep / nSkip, nOut = n + 1, nSkip = nSkip)
     sqrt(rowSums((target[,-1] - forecast[,-1])^2))
   },
   double(n+1)
@@ -57,6 +58,7 @@ info <- lst(
   testDuration,
   solverPrecision,
   timeStep,
+  nSkip,
   label,
   nReps,
   systemLabel

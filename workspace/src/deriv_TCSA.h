@@ -1,10 +1,10 @@
 #ifndef DERIV_TCSA_H
 #define DERIV_TCSA_H
 
-#include <vector>
+#include <array>
 
 template <typename T>
-inline std::vector<T> tcsa(const std::vector<T>& state) {
+inline std::array<T, 3> tcsa(const std::array<T, 3>& state) {
   const T b = T(0.208);
 
   const T& x = state[0];

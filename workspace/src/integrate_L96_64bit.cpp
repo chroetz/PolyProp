@@ -7,7 +7,7 @@ using namespace Rcpp;
 using std::vector;
 
 // [[Rcpp::export]]
-NumericMatrix integrate_L96_64bit(NumericVector start, double dt, size_t nSteps) {
+NumericMatrix integrate_L96_64bit(NumericVector start, double dt, size_t nOut) {
   size_t d = start.length();
 
   vector<double> state(d);
@@ -18,10 +18,10 @@ NumericMatrix integrate_L96_64bit(NumericVector start, double dt, size_t nSteps)
     return lorenz96<double>(s);
   };
 
-  auto result = rk4_nd<double>(state, dt, nSteps, f);
+  auto result = rk4_nd<double>(state, dt, nOut, f);
 
-  NumericMatrix out(nSteps, d+1);
-  for (size_t i = 0; i < nSteps; ++i)
+  NumericMatrix out(nOut, d+1);
+  for (size_t i = 0; i < nOut; ++i)
     for (size_t j = 0; j < d+1; ++j)
       out(i, j) = result[i][j];
 

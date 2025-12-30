@@ -5,13 +5,13 @@
 #include <functional>
 
 template <typename T, typename Func>
-std::vector<std::vector<T>> rk4_nd(const std::vector<T>& start, T dt, size_t nSteps, Func f) {
+std::vector<std::vector<T>> rk4_nd(const std::vector<T>& start, T dt, size_t nOut, Func f) {
   const size_t d = start.size();
   T t = T(0.0);
   std::vector<T> state = start;
-  std::vector<std::vector<T>> result(nSteps, std::vector<T>(d + 1)); // t + d components
+  std::vector<std::vector<T>> result(nOut, std::vector<T>(d + 1)); // t + d components
 
-  for (size_t i = 0; i < nSteps; ++i) {
+  for (size_t i = 0; i < nOut; ++i) {
     result[i][0] = t;
     for (size_t j = 0; j < d; ++j)
       result[i][j + 1] = state[j];

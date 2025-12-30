@@ -7,7 +7,7 @@ This repository contains all scripts and instructions needed to replicate the si
 ## 1. Prerequisites
 
 1. **Directory Layout**
-   Make sure you have the following top‐level folders (adjust `some/path/` as needed):
+   Make sure you have the following top-level folders (adjust `some/path/` as needed):
 
    ```
    some/path/PolyProp/workspace
@@ -53,7 +53,7 @@ This repository contains all scripts and instructions needed to replicate the si
 
 3. **Slurm**
 
-   A Slurm‐managed cluster is assumed, https://slurm.schedmd.com/
+   A Slurm-managed cluster is assumed, https://slurm.schedmd.com/
 
 4. **MPLAPACK**
 
@@ -71,6 +71,10 @@ This repository contains all scripts and instructions needed to replicate the si
 
    For creating plots and LaTeX tables, a TeX distribution such as TeX Live, https://www.tug.org/texlive/
 
+8. **Julia**
+
+   *only for Taylor Integration (extremely high precision ODE solver; standard experiments use RK4 instead):* Julia version 1.11.1, https://julialang.org/
+
 ---
 
 ## 2. Example
@@ -85,14 +89,16 @@ Run all code by calling `Rscript run_<name>.R <x> [<from:to>]`, where `<x>` is `
 
 ```bash
 cd workspace/src
-# Generate Ground‐Truth Trajectories
+# Generate Ground-Truth Trajectories
 Rscript run_truth.R c 
+# Wait until all jobs are finished!
+Rscript run_truth_32bit.R c 
 # Wait until all jobs are finished!
 # Estimate Largest Lyapunov Exponents
 Rscript run_lyapunov.R c
-# Measure ODE‐Solver Errors
+# Measure ODE-Solver Errors
 Rscript run_solverError.R c 1:100
-# Run Forecasts and Produce Forecast‐Error Time Series
+# Run Forecasts and Produce Forecast-Error Time Series
 Rscript run_forecast_main_fast.R c 1:100
 Rscript run_forecast_main_slow.R c 1:100
 Rscript run_forecast_TCSA_extra.R c 1:100
@@ -108,6 +114,37 @@ Rscript run_errorStats.R c
 # Wait until all jobs are finished!
 # Create Plots and LaTeX Tables (requires LaTeX installation)
 Rscript run_report.R c
+```
+
+Additional experiments with extreme precision solvers:
+
+```bash
+cd workspace/src # workspace/src
+# Generate Ground-Truth Trajectories
+Rscript run_truth_y.R c 
+cd truth_xd # workspace/src/truth_xd
+sbatch submit_L63_xd_chain.sh # needs Julia
+# Wait until all jobs are finished!
+cd .. # workspace/src
+Rscript truth_x_combine.R # Note: Does not use slurm.
+# Measure ODE-Solver Errors
+Rscript run_solverError_y.R c 1:100
+cd solverError_x # workspace/src/solverError_x
+sbatch submit_xdx.sh # needs Julia
+cd .. # workspace/src
+# Run Forecasts and Produce Forecast-Error Time Series
+Rscript run_forecast_main_fast_L63_xdm.R c 1:100
+Rscript run_forecast_main_fast_L63_ydm.R c 1:100
+# Wait until all jobs are finished!
+# Calculate Valid Prediction Times
+Rscript run_solverError_y_evaluate.R c
+Rscript run_evaluate_xy.R c
+# Wait until all jobs are finished!
+# Calculate Statistics of Error Metrics (mean VPT)
+Rscript run_errorStats.R c
+# Wait until all jobs are finished!
+# Create Plots and LaTeX Tables (requires LaTeX installation)
+Rscript run_report_xy.R c
 ```
 
 ---

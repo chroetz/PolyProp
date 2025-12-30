@@ -1,10 +1,10 @@
 #ifndef DERIV_L63_H
 #define DERIV_L63_H
 
-#include <vector>
+#include <array>
 
 template <typename T>
-inline std::vector<T> lorenz63(const std::vector<T>& state) {
+inline std::array<T, 3> lorenz63(const std::array<T, 3>& state) {
   const T sigma = T(10.0);
   const T rho   = T(28.0);
   const T beta  = T(8.0) / T(3.0);

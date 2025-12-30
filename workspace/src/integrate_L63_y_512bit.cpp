@@ -3,7 +3,7 @@
 #include <mplapack/mpreal.h>
 #include <mpfr.h>
 #include "deriv_L63.h"
-#include "rk4_3d.h"
+#include "rk4_y_3d.h"
 
 static bool init_precision = [](){
   mpfr_set_default_prec(512);
@@ -15,7 +15,7 @@ using std::array;
 using mpfr::mpreal;
 
 // [[Rcpp::export]]
-NumericMatrix integrate_L63_512bit(NumericVector start, double dt_, size_t nOut) {
+NumericMatrix integrate_L63_y_512bit(NumericVector start, double dt_, size_t nOut, size_t nSkip) {
   if (start.size() != 3) {
     stop("Start vector must have exactly 3 elements: x, y, z.");
   }
@@ -32,7 +32,7 @@ NumericMatrix integrate_L63_512bit(NumericVector start, double dt_, size_t nOut)
     return lorenz63<mpreal>(s);
   };
 
-  auto result = rk4_3d<mpreal>(state, dt, nOut, f);
+  auto result = rk4_y_3d<mpreal>(state, dt, nOut, nSkip, f);
 
   NumericMatrix out(nOut, 4);
   for (size_t i = 0; i < nOut; ++i) {

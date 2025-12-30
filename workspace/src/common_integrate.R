@@ -26,6 +26,11 @@ getIntegrateSystem <- function(systemLabel, solverPrecision) {
           Rcpp::sourceCpp("integrate_L63_512bit.cpp")
           return(integrate_L63_512bit)
         },
+        y = {
+          source("common_mplapack.R")
+          Rcpp::sourceCpp("integrate_L63_y_512bit.cpp")
+          return(integrate_L63_y_512bit)
+        },
         stop(unknownSolverErrorMessage)
       ),
       TCSA = switch(

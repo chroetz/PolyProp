@@ -1,33 +1,36 @@
 #include <Rcpp.h>
-#include <vector>
+#include <array>
 #include "deriv_L63.h"
 #include "rk4_3d.h"
 
 using namespace Rcpp;
-using std::vector;
+using std::array;
 
 // [[Rcpp::export]]
-NumericMatrix integrate_L63_32bit(NumericVector start, float dt, size_t nSteps) {
+NumericMatrix integrate_L63_32bit(NumericVector start, float dt, size_t nOut) {
   if (start.size() != 3) {
     stop("Start vector must have exactly 3 elements: x, y, z.");
   }
 
-  vector<float> state = {
+  array<float, 3> state = {
     static_cast<float>(start[0]),
     static_cast<float>(start[1]),
     static_cast<float>(start[2])
   };
 
-  auto f = [](const vector<float>& s) {
+  auto f = [](const array<float, 3>& s) {
     return lorenz63<float>(s);
   };
 
-  auto result = rk4_3d<float>(state, dt, nSteps, f);
+  auto result = rk4_3d<float>(state, dt, nOut, f);
 
-  NumericMatrix out(nSteps, 4);
-  for (size_t i = 0; i < nSteps; ++i)
-    for (size_t j = 0; j < 4; ++j)
-      out(i, j) = result[i][j];
+  NumericMatrix out(nOut, 4);
+  for (size_t i = 0; i < nOut; ++i) {
+    out(i, 0) = result[i][0];
+    out(i, 1) = result[i][1];
+    out(i, 2) = result[i][2];
+    out(i, 3) = result[i][3];
+  }
 
   return out;
 }

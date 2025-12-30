@@ -1,0 +1,31 @@
+\begin{center}
+\fontsize{8.0pt}{10pt}\selectfont
+\fontfamily{phv}\selectfont
+\renewcommand{\arraystretch}{1.05}
+\setlength{\tabcolsep}{0.5em}
+\rowcolors{2}{gray!20}{white}
+\begin{tabular}{lllrlc}
+\toprule
+System & Data & Method & VPT & 95\% CI & Reps. \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{Exterme Precision} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+TI-x & 64 bit & TI-x & 35.78 & [35.66, 35.91] & $10^{3}$ \\ 
+TI-x & 64 bit & RK4-y & 35.80 & [35.34, 36.26] & $10^{2}$ \\ 
+RK4-y & 64 bit & RK4-y & 35.75 & [35.30, 36.20] & $10^{2}$ \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{High Precision} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+RK4-m & 64 bit & RK4-m & 34.66 & [34.63, 34.70] & $10^{4}$ \\ 
+TI-x & 64 bit & RK4-m & 21.56 & [21.53, 21.59] & $10^{4}$ \\ 
+RK4-y & 64 bit & RK4-m & 21.60 & [21.56, 21.63] & $10^{4}$ \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{PolyProp} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+RK4-m & 64 bit & PolyProp & 35.75 & [35.38, 36.12] & $10^{2}$ \\ 
+TI-x & 64 bit & PolyProp & 35.63 & [35.22, 36.04] & $10^{2}$ \\ 
+RK4-y & 64 bit & PolyProp & 35.82 & [35.48, 36.16] & $10^{2}$ \\ 
+\bottomrule
+\end{tabular}
+\end{center}
+
