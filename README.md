@@ -160,5 +160,3 @@ File formats:
 - metadata is stored in `.json` files, https://www.json.org/json-en.html
 - results that require less memory are stored in `.csv` files, https://en.wikipedia.org/wiki/Comma-separated_values
 - reporting is done in LaTeX source code (`.tex`) for tables, in PNG image files (`.png`), or in PDFs (`.pdf`) created via tikz: https://tikz.dev/
-
-**Note:** This repository only contains the large data files of the first out of 100 repetitions for forecast error trajectories. But all metadata files and evaluations are contained.
