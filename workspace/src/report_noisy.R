@@ -30,11 +30,16 @@ errorStats <-
     normalization == "full"
   )
 
+solverErrorInfo <- readInfo(file.path(evalDirPath), "solverError_noisy_eval_L63_dd_d")
+solverErrorData <-
+  solverErrorInfo$vpt |>
+  as_tibble()
+
 colors8 <- c("#1F77E4", "#FF7F0E", "#2CA02C", "#D62728", "#BCBD00", "#920692", "#8A564B", "#FF77C2")
 
 experiments <-
   errorStats |>
-  select(system, systemPrecision, dataPrecision, testMode, methodPrecision, normalization) |>
+  select(system, systemPrecision, dataPrecision, testMode, methodPrecision, normalization, initalNoise) |>
   distinct()
 
 bbest <-
@@ -43,10 +48,10 @@ bbest <-
   summarise(
     deg = nDegs[which.max(mean)],
     step = nSteps[which.max(mean)],
-    .by = c(system, systemPrecision, dataPrecision, testMode, methodPrecision, normalization, nObs, noiseLevels)
+    .by = c(system, systemPrecision, dataPrecision, testMode, methodPrecision, normalization, nObs, noiseLevels, initalNoise)
   ) |>
   left_join(
-    errorStats, join_by(system, systemPrecision, dataPrecision, testMode, methodPrecision, normalization, nObs, deg == nDegs, step == nSteps, noiseLevels==noiseLevels)
+    errorStats, join_by(system, systemPrecision, dataPrecision, testMode, methodPrecision, normalization, nObs, deg == nDegs, step == nSteps, noiseLevels, initalNoise)
   )
 
 pltData <-
@@ -63,23 +68,40 @@ pltData <-
 
 plt <-
   pltData |>
-  ggplot(aes(x = nObs, y = mean, colour = colorLabel)) +
+  filter(initalNoise == TRUE) |>
+  ggplot(aes(x = nObs, y = mean, color = colorLabel)) +
   geom_line() + geom_point() +
-    scale_x_log10() +
-    xlab("$n$") + ylab(errorMetricLabelText) +
-    labs(color = "Noise Level") +
-    ggrepel::geom_label_repel(
-      aes(label = deg),
-      min.segment.length=0,
-      force_pull = 1,
-      force = 20,
-      max.overlaps  = Inf,
-      box.padding = 0,
-      label.padding = 0.1,
-      point.padding = 0,
-      label.r = 0.0,
-      label.size = 0.2,
-    )
+  geom_line(data = pltData |> filter(initalNoise == FALSE, noiseLevels != 0), linetype = "dotted") +
+  geom_point(data = pltData |> filter(initalNoise == FALSE, noiseLevels != 0), shape = 2) +
+  geom_hline(
+    data = solverErrorData |> mutate(
+      colorLabel = case_when(
+        noiseLevel == 0 ~ "$0$",
+        noiseLevel == 1 ~ "$1$",
+        .default = sprintf("$10^{%d}$", as.integer(round(log10(noiseLevel))))
+      ),
+      colorLabel = fct_reorder(colorLabel, noiseLevel)
+    ),
+    aes(yintercept = mean, color = colorLabel),
+    linetype = "dashed",
+    linewidth = 1
+  ) +
+  annotate("text", hjust = "left", label = "RK4 ODE solver 64bit", x = 8, y = 20, col="#777") +
+  scale_x_log10() +
+  xlab("$n$") + ylab(errorMetricLabelText) +
+  labs(color = "Noise Level") +
+  ggrepel::geom_label_repel(
+    aes(label = deg),
+    min.segment.length=0,
+    force_pull = 1,
+    force = 20,
+    max.overlaps  = Inf,
+    box.padding = 0,
+    label.padding = 0.1,
+    point.padding = 0,
+    label.r = 0.0,
+    label.size = 0.2,
+  )
 set.seed(1)
 saveGgplotAsTikz(plt, file.path(plotDirPath, "L63_d_noisy_bbest_plot.tex"), width=8, heigh=4)
 
@@ -90,7 +112,7 @@ fixedN <- 1024
 
 pltData <-
   errorStats |>
-  filter(nSteps == fixedStep, nObs == fixedN) |>
+  filter(nSteps == fixedStep, nObs == fixedN, initalNoise == FALSE) |>
   mutate(degree = as.factor(nDegs)) |>
   mutate(noiseLevels = ifelse(noiseLevels == 0, min(noiseLevels[noiseLevels>0]) / 100, noiseLevels))
 
@@ -124,7 +146,7 @@ fixedDeg <- 6
 
 pltData <-
   errorStats |>
-  filter(nSteps == fixedStep, nDegs == fixedDeg) |>
+  filter(nSteps == fixedStep, nDegs == fixedDeg, initalNoise == FALSE) |>
   mutate(
     colorLabel = case_when(
       noiseLevels == 0 ~ "$0$",

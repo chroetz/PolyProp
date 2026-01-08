@@ -17,6 +17,7 @@ normalization <- "none" # "none", "diag", "full"
 methodPrecision <- "d" # "s", "d", "m"
 label <- NULL
 noiseLevels <- 10^c(-10,-8,-6,-4,-2,0)
+initalNoise <- FALSE
 
 # read command line arguments and set parameters
 args <- commandArgs()
@@ -26,7 +27,7 @@ if ("--args" %in% args) eval(parse(text = paste(args[-(1:which(args == "--args")
 truth <- readInfoAndData(truthDirPath, truthName)
 systemLabel <- truth$info$systemLabel
 precisionLabel <- paste0(truth$info$precisionLabel, methodPrecision)
-if (is.null(label)) label <- paste("noisy", systemLabel, precisionLabel, substr(normalization, 1, 1), substr(testMode, 1, 1), sep="_")
+if (is.null(label)) label <- paste("noisy", systemLabel, precisionLabel, substr(normalization, 1, 1), substr(testMode, 1, 1), initalNoise, sep="_")
 outName <- sprintf("%s_%04d", label, randomSeed)
 outDirPath <- file.path(forecastDirPath, label)
 
@@ -86,6 +87,7 @@ info <- lst(
   nSteps,
   nDegs,
   noiseLevels,
+  initalNoise,
   normalization,
   methodPrecision,
   outName,
@@ -108,7 +110,7 @@ forecastError <-
   rowid_to_column("idx")
 
 for (n in nObs) for (step in nSteps) {
-  cat(sprintf("n: %d, step: %d\n", n, step))
+  cat(sprintf("n: %d, step: %d ", n, step))
 
   xTrain <- trajTrain[seq(nTrajTrain-(n-1)*step, nTrajTrain, step), -1]
   stopifnot(nrow(xTrain) == n)
@@ -121,11 +123,16 @@ for (n in nObs) for (step in nSteps) {
 
   for (noiseLevel in noiseLevels) {
 
-    cat(sprintf("noiseLevel: %g. ", noiseLevel))
+    cat(sprintf("noiseLevel: %g.\n", noiseLevel))
     if (noiseLevel == 0) {
       xTrainNoised <- xTrain
     } else {
       xTrainNoised <- xTrain + rnorm(length(xTrain), sd = noiseLevel*truthSd)
+    }
+    if (initalNoise) {
+      xInitialNoised <- xInitial + rnorm(length(xInitial), sd = noiseLevel*truthSd)
+    } else {
+      xInitialNoised <- xInitial
     }
 
     for (nDeg in nDegs) {
@@ -136,7 +143,7 @@ for (n in nObs) for (step in nSteps) {
       degrees <- getMonomialExponents(d, nDeg)
       prediction <- propagatePolynomial(
         xTrainNoised,
-        xInitial,
+        xInitialNoised,
         nPred = nrow(xTest),
         degrees = degrees,
         normalization = normalization

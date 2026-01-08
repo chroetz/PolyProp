@@ -27,6 +27,8 @@ errorLong <-
           methodPrecision, normalization, nObs, nSteps, nDegs, noiseLevels, randomSeed,
           all_of(errorMetric)
         ) |>
+        mutate(name = str_sub(basename(evaluationFilePath), start=21, end=-5)) |>
+        mutate(initalNoise = str_detect(name, "TRUE$")) |>
         rename(error = all_of(errorMetric)) |>
         distinct() |>
         arrange(nObs, nSteps, nDegs, noiseLevels, randomSeed)
@@ -54,7 +56,7 @@ errorStats <-
     n = n(),
     ci95Lower = mean - qnorm(0.975) * sd / sqrt(n-nNa),
     ci95Upper = mean + qnorm(0.975) * sd / sqrt(n-nNa),
-    .by = c(system, systemPrecision, dataPrecision, testMode, methodPrecision, normalization, nObs, nSteps, nDegs, noiseLevels)
+    .by = c(system, systemPrecision, dataPrecision, testMode, methodPrecision, normalization, nObs, nSteps, nDegs, noiseLevels, initalNoise)
   )
 
 write_csv(errorStats, file.path(evalDirPath, outName))

@@ -478,7 +478,12 @@ plt <-
   labs(color = "System") +
   #geom_hline(yintercept = solverVptL96dsd |> reframe(vpt = range(vpt)) |> pull(vpt), col="#777") +
   #annotate("text", hjust = "left", label = "RK4 ODE solver 64bit range", x = 8, y = 17, col="#777") +
-  geom_hline(data = solverVptL96dsd, mapping = aes(yintercept = vpt, color = system)) +
+  geom_hline(
+    data = solverVptL96dsd,
+    mapping = aes(yintercept = vpt, color = system),
+    linetype = "dashed",
+    linewidth = 1
+  ) +
   annotate("text", hjust = "left", label = "RK4 ODE solver 64bit", x = 8, y = 15.8, col="#777") +
   ggrepel::geom_label_repel(
     aes(label = deg),
@@ -527,7 +532,12 @@ plt <-
   scale_x_log10() +
   xlab("$n$") + ylab(errorMetricLabelText) +
   labs(color = "System") +
-  geom_hline(data = solverVptL96sdd, mapping = aes(yintercept = vpt, color = system)) +
+  geom_hline(
+    data = solverVptL96sdd,
+    mapping = aes(yintercept = vpt, color = system),
+    linetype = "dashed",
+    linewidth = 1
+  ) +
   annotate("text", hjust = "left", label = "RK4 ODE solver 64bit", x = 8, y = 15.8, col="#777") +
   ggrepel::geom_label_repel(
     aes(label = deg),

@@ -17,6 +17,7 @@ cmds <- paste0(
   "Rscript report_",
   c(
     "detail",
+    "detail_noisy",
     "special",
     "bestTable",
     "bestTable_L96plot",

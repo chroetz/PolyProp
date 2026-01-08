@@ -1,4 +1,5 @@
-dataDirPath <- "../../data"
+#dataDirPath <- "../../PaperPolyPropData"
+dataDirPath <- "../../PaperTooEasyData"
 plotDirPath <- file.path("../img")
 tableDirPath <- file.path("../tbl")
 keyValueDirPath <- file.path("../key")

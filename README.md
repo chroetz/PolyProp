@@ -98,6 +98,7 @@ Rscript run_truth_32bit.R c
 Rscript run_lyapunov.R c
 # Measure ODE-Solver Errors
 Rscript run_solverError.R c 1:100
+Rscript run_solverError_noisy.R c 1:100
 # Run Forecasts and Produce Forecast-Error Time Series
 Rscript run_forecast_main_fast.R c 1:100
 Rscript run_forecast_main_slow.R c 1:100
@@ -107,10 +108,12 @@ Rscript run_forecast_noisy.R c 1:100
 # Wait until all jobs are finished!
 # Calculate Valid Prediction Times
 Rscript run_solverError_evaluate.R c
+Rscript run_solverError_noisy_evaluate.R c
 Rscript run_evaluate.R c
 # Wait until all jobs are finished!
 # Calculate Statistics of Error Metrics (mean VPT)
 Rscript run_errorStats.R c
+Rscript run_errorStats_noisy.R c
 # Wait until all jobs are finished!
 # Create Plots and LaTeX Tables (requires LaTeX installation)
 Rscript run_report.R c
